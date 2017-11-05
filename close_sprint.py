@@ -35,7 +35,7 @@ client = TrelloClient(
     token_secret='0211b712c27726253211e5fd108e46e7'
 )
 
-def get_board_id(my_board):
+def get_board_id(my_board):	
 	for board in client.list_boards():
 		if my_board == board.name:
 			return board.id
@@ -76,7 +76,7 @@ def find_next_available_cell(wks, col):
     return values.index('') + 1
 
 def record_on_gsheets(sprint, tasks, members, labels):
-        row_completed_tasks = find_next_avaliable_cell(3) 
+        row_completed_tasks = find_next_available_cell(3) 
         bernies_tasks = wks.acell('G2').value
         gonz_tasks = wks.acell('G3').value
         lermits_tasks = wks.acell('G4').value

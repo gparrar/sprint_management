@@ -36,26 +36,17 @@ client = TrelloClient(
 )
 
 def get_board_id(my_board):
-	board_id = ''
-	all_boards = client.list_boards()	
-	for board in all_boards:
+	for board in client.list_boards():
 		if my_board == board.name:
-			board_id = board.id
-			pass
-	return board_id
+			return board.id
 
 def get_list_id(board, my_list):
-	list_id = ''
-	origin_lists = board.list_lists()
-	for lista in origin_lists:
+	for lista in board.list_lists():
 		if lista.name == my_list:
-			list_id = lista.id
-		pass
-	return list_id
+			return lista.id
 
 def member_name(member_id):
-	member_name = client.get_member(member_id).fetch().full_name
-	return member_name
+	return client.get_member(member_id).fetch().full_name
 
 def get_sprint_info():
 	tasks = []
@@ -75,13 +66,14 @@ def prepare_next_sprint():
 	new_list = origin.get_list(get_list_id(origin, name))
 	sprint.move_all_cards(new_list)
 
-def find_next_avaliable_cell(col):
+#este método lo puedes omitir...
+#podrías cambiar:
+#row_completed_tasks = find_next_available_cell(3) 
+#por:
+#row_completed_tasks = wks.col_values(3).index('') + 1 
+def find_next_available_cell(wks, col):
     values = wks.col_values(col)
-    for value in values:
-        if value == '':
-        	index = values.index(value)
-        	break
-    return index + 1
+    return values.index('') + 1
 
 def record_on_gsheets(sprint, tasks, members, labels):
         row_completed_tasks = find_next_avaliable_cell(3) 

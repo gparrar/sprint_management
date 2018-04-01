@@ -1,3 +1,4 @@
 *.pyc
 constants.py
 planned_tasks.txt
+client_secret.json
